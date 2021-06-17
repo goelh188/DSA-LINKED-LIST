@@ -1,0 +1,50 @@
+class Solution
+{
+    public:
+     Node* reverse(Node *head)
+    {
+        Node *current=head;
+        Node *prevnode=0;
+        Node *nextnode;
+        while(current!=NULL)
+        {
+            nextnode=current->next;
+            current->next=prevnode;
+            prevnode=current;
+            current=nextnode;
+        }
+        return prevnode;
+    }
+    //Function to add two numbers represented by linked list.
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        // code here
+        first=reverse(first);
+        second=reverse(second);
+        Node *temp;
+        Node *res=0;
+        Node *current=0;
+        int c=0,s=0;
+        while(first!=NULL || second!=NULL)
+        {
+            s=c+(first?first->data:0)+(second?second->data:0);
+            c=(s>=10)?1:0;
+            s=s%10;
+            temp=new Node(s);
+            if(res==NULL)res=temp;
+            else current->next=temp;
+            current=temp;
+            if(first) first=first->next;
+            if(second) second=second->next;
+            
+            }
+            if(c>0)
+            {
+                temp=new Node(c);
+                current->next=temp;
+                current=temp;
+            }
+            res=reverse(res);
+            return res;
+        }
+};
