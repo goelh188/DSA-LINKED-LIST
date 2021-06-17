@@ -1,0 +1,74 @@
+class Solution{
+  public:
+    //Function to sort the given linked list using Merge Sort.  
+    Node* midpoint(Node *head)
+    {
+        Node *slow=head;
+        Node *fast=head->next;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+    
+    
+    
+    Node* mtsl(Node *head1, Node *head2)
+    {
+        Node *fh;
+        Node *ft;
+        if(head1->data>head2->data)
+        {
+            fh=head2;
+            ft=head2;
+            head2=head2->next;
+        }
+        else{
+            fh=head1;
+            ft=head1;
+            head1=head1->next;
+        }
+        while(head1!=NULL && head2!=NULL)
+        {
+            if(head1->data>head2->data)
+            {
+                ft->next=head2;
+                ft=head2;
+            }
+            else{
+                ft->next=head1;
+                ft=head1;
+            }
+        }
+        if(head1!=NULL)
+        {
+            ft->next=head1;
+            ft=head1;
+
+        }
+        else{
+            ft->next=head2;
+            ft=head2;
+        }
+        return fh;
+    }
+    
+    
+    
+    Node* mergeSort(Node* head) {
+        // your code here
+        if(head==NULL || head->next==NULL){
+        return head;
+    }
+    Node *head1=head;
+    Node *mid=midpoint(head);
+    Node *head2=mid->next;
+    mid->next=NULL;
+    Node *h1=mergeSort(head1);
+    Node *h2=mergeSort(head2);
+    return mtsl(h1,h2);
+
+    }
+};
