@@ -1,0 +1,58 @@
+Node* SortedMerge(Node* a, Node* b)
+{
+    if(a==NULL)
+    {
+        return b;
+    }
+    if(b==NULL)
+    {
+        return a;
+    }
+    Node *fh=NULL;
+    Node *ft=NULL;
+    if(a->data<b->data)
+    {
+        fh=a;
+        ft=a;
+        a=a->bottom;
+    }
+    else{
+        fh=b;
+        ft=b;
+        b=b->bottom;
+    }
+    while(a!=NULL && b!=NULL)
+    {
+        if(a->data<b->data)
+        {
+            ft->bottom=a;
+            ft=a;
+            a=a->bottom;
+        }
+        else{
+            ft->bottom=b;
+            ft=b;
+            b=b->bottom;
+        }
+    }
+    if(a!=NULL)
+    {
+        ft->bottom=a;
+        ft=a;
+    }
+    if(b!=NULL)
+    {
+        ft->bottom=b;
+        ft=b;
+    }
+    return fh;
+}
+Node *flatten(Node *root)
+{
+   // Your code here
+   if(root==NULL ||root->next==NULL)
+   {
+       return root;
+   }
+   return SortedMerge(root,flatten(root->next));
+}
