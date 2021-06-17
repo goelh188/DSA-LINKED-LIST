@@ -1,0 +1,49 @@
+class Solution
+{
+    public:
+    Node* reverse(Node *head)
+    {
+        Node *current=head;
+        Node *prevnode=0;
+        Node *nextnode;
+        while(current!=NULL)
+        {
+            nextnode=current->next;
+            current->next=prevnode;
+            prevnode=current;
+            current=nextnode;
+        }
+        return prevnode;
+    }
+    Node* addOne(Node *head) 
+    {
+        // Your Code here
+        // return head of list after adding one
+         head=reverse(head);
+         Node *current=head;
+         bool f=true;
+         while(current!=NULL && f==true)
+         {
+             if(current->next==NULL && current->data==9)
+             {
+                 current->data=1;
+                 Node *temp=new Node(0);
+                 temp->next=head;
+                 head=temp;
+                 current=current->next;
+             }
+             else if(current->data==9)
+             {
+                 current->data=0;
+                 current=current->next;
+             }
+             else{
+                 current->data=current->data+1;
+                 current=current->next;
+                 f=false;
+             }
+         }
+         head=reverse(head);
+         return head;
+    }
+};
