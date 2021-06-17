@@ -1,0 +1,46 @@
+class Solution
+{
+    public:
+    Node *reverse(Node *head)
+    {
+        Node *current=head;
+        Node *prevnode=0;
+        Node *nxt;
+        while(current!=NULL)
+        {
+            nxt=current->next;
+            current->next=prevnode;
+            prevnode=current;
+            current=nxt;
+        }
+        return prevnode;
+    }
+    
+    
+    Node *compute(Node *head)
+    {
+        // your code goes here
+        head=reverse(head);
+        Node *current=head;
+        int ma=head->data;
+        Node *prev=head;
+        head=head->next;
+        while(head!=NULL)
+        {
+            if(head->data>=ma)
+            {
+                ma=head->data;
+                prev=head;
+                head=head->next;
+            }
+            else{
+                prev->next=head->next;
+                head=prev->next;
+            }
+        }
+        head=reverse(current);
+        return head;
+    }
+    
+};
+   
