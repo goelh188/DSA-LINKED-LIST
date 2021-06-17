@@ -1,0 +1,43 @@
+int len(Node* head)
+{
+    Node *temp=head;
+    int len=0;
+    while(temp!=NULL)
+    {
+        len+=1;
+        temp=temp->next;
+    }
+    return len;
+}
+//Function to find intersection point in Y shaped Linked Lists.
+int intersectPoint(Node* head1, Node* head2)
+{
+    // Your Code Here
+    Node *temp1=head1;
+    Node *temp2=head2;
+    int c1=len(head1);
+    int c2=len(head2);
+    int d=abs(c1-c2);
+    for(int i=0;i<d;i++)
+    {
+        if(c1>c2)
+        {
+            temp1=temp1->next;
+        }
+        else{
+            temp2=temp2->next;
+        }
+    }
+    while(temp1 && temp2)
+    {
+        if(temp1==temp2)
+        {
+            return temp1->data;
+        }
+        else{
+            temp1=temp1->next;
+            temp2=temp2->next;
+        }
+    }
+    return 0;
+}
