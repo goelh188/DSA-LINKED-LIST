@@ -1,0 +1,32 @@
+Node *reverse(Node *head)
+    {
+        Node *current=head;
+        Node *prevnode=0;
+        Node *nxt;
+        while(current!=NULL)
+        {
+            nxt=current->next;
+            current->next=prevnode;
+            prevnode=current;
+            current=nxt;
+        }
+        return prevnode;
+    }
+    
+int getNthFromLast(Node *head, int n)
+{
+       // Your code here
+      head=reverse(head);
+      Node *temp=head;
+      int i=1;
+      while(temp!=NULL && i<n)
+      {
+          temp=temp->next;
+          i++;
+      }
+      if(temp==NULL)
+      {
+          return -1;
+      }
+      return temp->data;
+}
